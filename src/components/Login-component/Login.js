@@ -55,7 +55,7 @@ const Login = () => {
           </div>
           <div className='card-body'>
             <p className='login-box-msg'>
-              Signnnnnnnnn in to start your session
+              Sign in to start your session
             </p>
 
             <form onSubmit={handleSubmit}>
