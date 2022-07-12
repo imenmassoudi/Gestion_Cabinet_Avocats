@@ -24,8 +24,36 @@ export default class Menu extends Component {
                                         <p>Utilisateurs</p>
                                     </Link>
                                 </li>
+                                <li className="nav-header">collaborateur</li>
+                                <li className="nav-item">
+                                    <Link to="/collaborateur" className="nav-link">
+                                        <i className="nav-icon fas fa-edit" />
+                                        <p>liste des Collaborateurs</p>
+                                    </Link>
+                                </li>
 
+                                <li className="nav-header">greffier</li>
+                                <li className="nav-item">
+                                    <Link to="/greffier" className="nav-link">
+                                        <i className="nav-icon fas fa-edit" />
+                                        <p>liste des Greffiers</p>
+                                    </Link>
+                                </li>
 
+                                <li className="nav-header">prime greffier</li>
+                                <li className="nav-item">
+                                    <Link to="/primegreffier" className="nav-link">
+                                        <i className="nav-icon fas fa-edit" />
+                                        <p>liste des primes greffier</p>
+                                    </Link>
+                                </li>
+                                <li className="nav-header">dossier</li>
+                                <li className="nav-item">
+                                    <Link to="/typedossier" className="nav-link">
+                                        <i className="nav-icon fas fa-edit" />
+                                        <p>type dossier</p>
+                                    </Link>
+                                </li>
                             </ul>
                         </nav>
                         {/* /.sidebar-menu */}

@@ -72,7 +72,7 @@ router.route('/:id').delete((req, res) => {
 // Generate JWT
 const generateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
-        expiresIn: '20s',
+        expiresIn: '30d',
     })
 }
 module.exports = router;
