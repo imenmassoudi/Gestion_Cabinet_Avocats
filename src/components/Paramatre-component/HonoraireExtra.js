@@ -1,13 +1,19 @@
+import React from 'react'
 import { useState, useEffect } from 'react'
-import AddUser from './add-user'
-import DeleteUser from './delete-user'
 import jwt from 'jwt-decode'
 import { useHistory } from 'react-router-dom'
 
-const User = () => {
+import AddHonoraireExtra from './add-honoraireExtra'
+import DeleteHonoraireExtra from './delete-honoraireExtra'
+import UpdateHonoraireExtra from './update-honoraireExtra'
+
+const HonoraireExtra = () => {
   const history = useHistory()
   const [x, setX] = useState(1)
   const [data, setData] = useState([])
+  const refresh = () => {
+    setX(x + 1)
+  }
   useEffect(() => {
     const token = localStorage.getItem('token')
 
@@ -17,7 +23,7 @@ const User = () => {
         localStorage.removeItem('token')
         history.push('/login')
       } else {
-        fetch('http://localhost:5000/users', {
+        fetch('http://localhost:5000/parametre/honoraireExtra', {
           headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
@@ -30,59 +36,60 @@ const User = () => {
             setData(data)
           })
           .catch((err) => {
-            console.log(err)
+            console.log('errrrr')
           })
       }
     }
   }, [x])
 
-  const refresh = () => {
-    setX(x + 1)
-  }
-
   return (
-    <div className='content-wrapper'>
+    <section className='content-wrapper'>
       <br />
       <br />
       <div className='row'>
         <div className='col-12'>
           <div className='card'>
             <div className='card-header'>
-              <h3 className='card-title'>Liste des utilisateurs</h3>
+              <h1 className='card-title'>Liste des Honoraire en Extra</h1>
 
               <div className='card-tools'>
-                {/*<Button variant="primary" onClick={handleShow}>
-                        Ajouter un utilisateur
-                    </Button>*/}
-                <AddUser refresh={refresh} />
+                <AddHonoraireExtra
+                  refresh={refresh}
+                  style={{}}
+                ></AddHonoraireExtra>
               </div>
             </div>
             <div
               className='card-body table-responsive p-0'
-              style={{ height: '300px' }}
+              style={{ height: '500px' }}
             >
               <table className='table table-head-fixed text-nowrap'>
                 <thead>
                   <tr>
-                    <th>Nom d'utilisateur</th>
-                    <th>Nom</th>
-                    <th>Prenom</th>
+                    <th>Libellé en Arabe</th>
+                    <th>Libellé en Francais</th>
+                    <th>Montant</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   {data.map((data) => (
                     <tr key={data._id}>
-                      <td>{data.username}</td>
-                      <td>{data.nom}</td>
-                      <td>{data.prenom}</td>
-                      <td>
-                        {/*  <i className="fas fa-trash" />*/}
-                        <DeleteUser
+                      <td>{data.libelle_arabe}</td>
+                      <td>{data.libelle_francais}</td>
+                      <td>{data.montant}</td>
+                      <td style={{ display: 'flex' }}>
+                        <DeleteHonoraireExtra
                           refresh={refresh}
                           id={data._id}
-                          username={data.username}
-                        />
+                          libelle_francais={data.libelle_francais}
+                        ></DeleteHonoraireExtra>
+                        &nbsp;&nbsp;&nbsp;
+                        <UpdateHonoraireExtra
+                          refresh={refresh}
+                          id={data._id}
+                          data={data}
+                        ></UpdateHonoraireExtra>
                       </td>
                     </tr>
                   ))}
@@ -92,7 +99,8 @@ const User = () => {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   )
 }
-export default User
+
+export default HonoraireExtra

@@ -1,13 +1,18 @@
+import React from 'react'
 import { useState, useEffect } from 'react'
-import AddUser from './add-user'
-import DeleteUser from './delete-user'
 import jwt from 'jwt-decode'
 import { useHistory } from 'react-router-dom'
+import AddTimbre from './add-timbre'
+import DeleteTimbre from './delete-timbre'
+import UpdateTimbre from './update-timbre'
 
-const User = () => {
+const Timbre = () => {
   const history = useHistory()
   const [x, setX] = useState(1)
   const [data, setData] = useState([])
+  const refresh = () => {
+    setX(x + 1)
+  }
   useEffect(() => {
     const token = localStorage.getItem('token')
 
@@ -17,7 +22,7 @@ const User = () => {
         localStorage.removeItem('token')
         history.push('/login')
       } else {
-        fetch('http://localhost:5000/users', {
+        fetch('http://localhost:5000/parametre/timbre', {
           headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`,
@@ -27,62 +32,58 @@ const User = () => {
             return res.json()
           })
           .then((data) => {
+            console.log(data)
             setData(data)
           })
           .catch((err) => {
-            console.log(err)
+            console.log('errrrr')
           })
       }
     }
   }, [x])
-
-  const refresh = () => {
-    setX(x + 1)
-  }
-
   return (
-    <div className='content-wrapper'>
+    <section className='content-wrapper'>
       <br />
       <br />
       <div className='row'>
         <div className='col-12'>
           <div className='card'>
             <div className='card-header'>
-              <h3 className='card-title'>Liste des utilisateurs</h3>
+              <h1 className='card-title'>Liste des Timbres</h1>
 
               <div className='card-tools'>
-                {/*<Button variant="primary" onClick={handleShow}>
-                        Ajouter un utilisateur
-                    </Button>*/}
-                <AddUser refresh={refresh} />
+                <AddTimbre refresh={refresh}></AddTimbre>
               </div>
             </div>
             <div
               className='card-body table-responsive p-0'
-              style={{ height: '300px' }}
+              style={{ height: '500px' }}
             >
               <table className='table table-head-fixed text-nowrap'>
                 <thead>
                   <tr>
-                    <th>Nom d'utilisateur</th>
-                    <th>Nom</th>
-                    <th>Prenom</th>
+                    <th>Libellé</th>
+                    <th>Montant</th>
                     <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
                   {data.map((data) => (
                     <tr key={data._id}>
-                      <td>{data.username}</td>
-                      <td>{data.nom}</td>
-                      <td>{data.prenom}</td>
-                      <td>
-                        {/*  <i className="fas fa-trash" />*/}
-                        <DeleteUser
+                      <td>{data.libelle}</td>
+                      <td>{data.montant}</td>
+                      <td style={{ display: 'flex' }}>
+                        <DeleteTimbre
                           refresh={refresh}
                           id={data._id}
-                          username={data.username}
-                        />
+                          libelle={data.libelle}
+                        ></DeleteTimbre>
+                        &nbsp;&nbsp;&nbsp;
+                        <UpdateTimbre
+                          refresh={refresh}
+                          id={data._id}
+                          data={data}
+                        ></UpdateTimbre>
                       </td>
                     </tr>
                   ))}
@@ -92,7 +93,8 @@ const User = () => {
           </div>
         </div>
       </div>
-    </div>
+    </section>
   )
 }
-export default User
+
+export default Timbre
