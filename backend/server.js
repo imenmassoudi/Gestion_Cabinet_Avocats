@@ -20,9 +20,12 @@ mongoose
 
 
 const usersRouter = require('./routes/users');
+const tribRouter = require('./routes/tribunaux');
+const serviceRouter = require('./routes/services');
 
 app.use('/users', usersRouter);
-
+app.use('/tribunaux', tribRouter);
+app.use('/tribunaux/services', serviceRouter);
 
 const collaborateursRouter = require('./routes/collaborateurs');
 
@@ -36,9 +39,27 @@ const primegreffiersRouter = require('./routes/primegreffiers');
 
 app.use('/primegreffiers', primegreffiersRouter);
 
+const adversairesRouter = require('./routes/adversaires');
+app.use('/adversaires', adversairesRouter);
+
 const typedossiersRouter = require('./routes/typedossiers');
 
 app.use('/typedossiers', typedossiersRouter);
+
+
+
+const demandeursRouter = require('./routes/demandeurs');
+
+app.use('/demandeurs', demandeursRouter);
+
+const parametreRouter = require('./routes/parametre');
+app.use('/parametre', parametreRouter);
+
+const sousdossierRouter = require('./routes/sousDossiers');
+app.use('/sousDossier', sousdossierRouter);
+
+const ReglementsRouter = require('./routes/reglements');
+app.use('/reglements', ReglementsRouter);
 
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);

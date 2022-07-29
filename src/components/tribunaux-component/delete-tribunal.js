@@ -1,30 +1,30 @@
-import {Button, Modal} from "react-bootstrap";
 import {useState} from "react";
+import {Button, Modal} from "react-bootstrap";
 
-const DeleteUser = ({refresh,id,username}) => {
-
+const DeleteTribunal = ({refresh,id}) => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
 
     const handleDelete= () => {
-            fetch('http://localhost:5000/users/'+id, {
-                method: 'DELETE',
-            }).then(() => {
-                handleClose()
-                refresh()
-            })
+        alert('http://localhost:5000/tribunaux/'+id)
+        fetch('http://localhost:5000/tribunaux/'+id, {
+            method: 'DELETE',
+        }).then(() => {
+            handleClose()
+            refresh()
+        })
     };
     return(
         <div className="row">
             <div className="col-12">
-                <i className="fas fa-trash" onClick={handleShow} style={{color:"red"}} />
+                <i  style={{display:"inline-block"}} className="fas fa-trash" onClick={handleShow} />
                 <Modal show={show} onHide={handleClose}>
                     <Modal.Header>
                         <Modal.Title>Supression</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>Voulez vous supprimer l'utilisateur {username}</Modal.Body>
+                    <Modal.Body>Vous êtes sur?</Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={handleClose}>
                             Annuler
@@ -39,4 +39,5 @@ const DeleteUser = ({refresh,id,username}) => {
 
     )
 }
-export default DeleteUser;
+
+export default DeleteTribunal

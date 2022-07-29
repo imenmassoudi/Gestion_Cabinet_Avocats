@@ -1,6 +1,12 @@
-import {Link} from "react-router-dom";
+import {Link, useHistory} from "react-router-dom";
 
 const Header = () => {
+    const history = useHistory();
+   const logout = () => {
+        localStorage.removeItem('token');
+       history.push('/login')
+
+   }
     return (
         <div>
             <nav className="main-header navbar navbar-expand navbar-white navbar-light">
@@ -10,10 +16,37 @@ const Header = () => {
                         <a className="nav-link" data-widget="pushmenu" href="#"><i className="fas fa-bars" /></a>
                     </li>
                     <li className="nav-item d-none d-sm-inline-block">
-                        <Link to="/" className="nav-link">Home</Link>
+                        <Link to="/user" className="nav-link">Home</Link>
                     </li>
                     <li className="nav-item d-none d-sm-inline-block">
                         <Link to="/" className="nav-link">Contact</Link>
+                    </li>
+                    <li className="nav-item d-none d-sm-inline-block">
+                        <Link to="/adversaire" className="nav-link">adversaire</Link>
+                    </li>
+                    <li className="nav-item d-none d-sm-inline-block">
+                        <Link to="/tache" className="nav-link">tache</Link>
+                    </li>
+               
+                    <li className='nav-item'>
+                                  <Link to='/client' className='nav-link'>
+                                 client
+                                
+                                  </Link>
+                              </li>
+                              <li className='nav-item'>
+                                  <Link to='/demandeur' className='nav-link'>
+                                 demandeur
+                                </Link>
+                              </li>
+                              <li className="nav-item d-none d-sm-inline-block">
+                        <Link to="/reglement" className="nav-link">reglement</Link>
+                    </li>
+                    <li className="nav-item d-none d-sm-inline-block">
+                        <Link to="/collaborateurdossier" className="nav-link">collaborateur dossier</Link>
+                    </li>
+                    <li className="nav-item d-none d-sm-inline-block">
+                        <Link to="/sousdossier" className="nav-link">Sous dossier</Link>
                     </li>
                 </ul>
                 {/* SEARCH FORM */}
@@ -116,7 +149,7 @@ const Header = () => {
                     </li>
                     <li className="nav-item">
                         <a className="nav-link" data-widget="control-sidebar" data-slide="true" href="#">
-                            <i className="fas fa-th-large" />
+                            <i className="fas fa-sign-out-alt" onClick={logout}/>
                         </a>
                     </li>
                 </ul>

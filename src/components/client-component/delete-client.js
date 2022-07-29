@@ -1,7 +1,7 @@
 import {Button, Modal} from "react-bootstrap";
 import {useState} from "react";
 
-const DeleteUser = ({refresh,id,username}) => {
+const DeleteClient = ({refresh,id,nom}) => {
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -9,12 +9,12 @@ const DeleteUser = ({refresh,id,username}) => {
 
 
     const handleDelete= () => {
-            fetch('http://localhost:5000/users/'+id, {
-                method: 'DELETE',
-            }).then(() => {
-                handleClose()
-                refresh()
-            })
+        fetch('http://localhost:5000/clients/'+id, {
+            method: 'DELETE',
+        }).then(() => {
+            handleClose()
+            refresh()
+        })
     };
     return(
         <div className="row">
@@ -24,7 +24,7 @@ const DeleteUser = ({refresh,id,username}) => {
                     <Modal.Header>
                         <Modal.Title>Supression</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>Voulez vous supprimer l'utilisateur {username}</Modal.Body>
+                    <Modal.Body>Voulez vous supprimer l'utilisateur {nom}</Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={handleClose}>
                             Annuler
@@ -39,4 +39,4 @@ const DeleteUser = ({refresh,id,username}) => {
 
     )
 }
-export default DeleteUser;
+export default DeleteClient;

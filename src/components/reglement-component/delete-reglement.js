@@ -1,7 +1,7 @@
 import {Button, Modal} from "react-bootstrap";
 import {useState} from "react";
 
-const DeleteUser = ({refresh,id,username}) => {
+const DeleteReglement = ({refresh,id}) => {
 
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
@@ -9,7 +9,7 @@ const DeleteUser = ({refresh,id,username}) => {
 
 
     const handleDelete= () => {
-            fetch('http://localhost:5000/users/'+id, {
+            fetch('http://localhost:5000/reglements/'+id, {
                 method: 'DELETE',
             }).then(() => {
                 handleClose()
@@ -19,17 +19,18 @@ const DeleteUser = ({refresh,id,username}) => {
     return(
         <div className="row">
             <div className="col-12">
-                <i className="fas fa-trash" onClick={handleShow} style={{color:"red"}} />
+            
+                <i className="fas fa-trash" onClick={handleShow} />
                 <Modal show={show} onHide={handleClose}>
                     <Modal.Header>
                         <Modal.Title>Supression</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>Voulez vous supprimer l'utilisateur {username}</Modal.Body>
+                    <Modal.Body>Voulez vous supprimer le reglement {id}</Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={handleClose}>
                             Annuler
                         </Button>
-                        <Button variant="btn btn-outline-danger" onClick={handleDelete}>
+                        <Button variant="primary" onClick={handleDelete}>
                             Supprimer
                         </Button>
                     </Modal.Footer>
@@ -39,4 +40,4 @@ const DeleteUser = ({refresh,id,username}) => {
 
     )
 }
-export default DeleteUser;
+export default DeleteReglement;

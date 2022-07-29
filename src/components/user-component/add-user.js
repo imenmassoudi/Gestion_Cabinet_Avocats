@@ -6,7 +6,9 @@ const AddUser = (refresh) => {
     const [nom,setNom] = useState("");
     const [prenom,setPrenom] = useState("");
     const [mdp,setMdp] = useState("");
+    const [mdpConf,setMdpConf] = useState("");
     const [show, setShow] = useState(false);
+    const [verif,setVerif] = useState("hidden");
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
 
@@ -15,11 +17,16 @@ const AddUser = (refresh) => {
     const handleSubmit = (event) => {
         const form = event.currentTarget;
         const user = {username,nom,prenom,mdp};
-        if (form.checkValidity() === false) {
+        if (form.checkValidity() === false || mdp !== mdpConf) {
+            if(mdp !== mdpConf){
+                setVerif("visible")
+            }
+            alert("mdp: "+mdp+" "+mdpConf)
             event.preventDefault();
             event.stopPropagation();
         }
         else{
+
             fetch('http://localhost:5000/users/add',{
                 method:"POST",
                 headers:{"Content-Type":"application/json"},
@@ -37,7 +44,7 @@ const AddUser = (refresh) => {
   return(
       <div className="row">
           <div className="col-12">
-              <Button variant="primary" onClick={handleShow}>
+              <Button variant="btn btn-outline-secondary" onClick={handleShow} style={{float:"right"}}>
                   Ajouter un utilisateur
               </Button>
               <Modal show={show} onHide={handleClose}>
@@ -81,12 +88,23 @@ const AddUser = (refresh) => {
                                   Le mot de passe est obligatoire!
                               </Form.Control.Feedback>
                           </Form.Group>
+                          <Form.Group className="mb-3" controlId="formBasicPassword">
+                              <Form.Label>Confirmer mot de passe</Form.Label>
+                              <Form.Control type="password" placeholder="confirmer mot de passe ..." required
+                                            onChange={(e) => setMdpConf(e.target.value)}/>
+                              <Form.Control.Feedback type="invalid">
+                                  Le mot de passe est obligatoire!
+                              </Form.Control.Feedback>
+                              <div className="alert alert-danger" role="alert" style={{visibility:verif}}>
+                                  Vérifier le mot de passe saisi
+                              </div>
+                          </Form.Group>
                           <hr/>
                           <div style={{float: "right"}}>
-                              <Button variant="primary mr-2" type="submit">
+                              <Button variant="btn btn-outline-primary mr-2" type="submit">
                                   Ajouter
                               </Button>
-                              <Button variant="secondary" onClick={handleClose}>
+                              <Button variant="btn btn-outline-secondary" onClick={handleClose}>
                                   Annuler
                               </Button>
                           </div>

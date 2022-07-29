@@ -67,6 +67,15 @@ router.route('/:id').delete((req, res) => {
         .catch(err => res.status(400).json('Error: ' + err));
 });
 
+router.put('/:id', (req, res) => {
+    User.findByIdAndUpdate(req.params.id, req.body)
+        .then(function () {
+            res.json("Crud updated");
+        })
+        .catch(function (err) {
+            res.status(422).send("Crud update failed.");
+        });
+});
 
 
 // Generate JWT

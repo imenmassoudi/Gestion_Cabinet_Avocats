@@ -53,17 +53,7 @@ const AddCollaborateur = (refresh) => {
                   </Modal.Header>
                   <Modal.Body>
                       <Form noValidate validated={validated} onSubmit={handleSubmit}>
-                          <Form.Group className="mb-3" controlId="formBasicEmail">
-                              <Form.Label>Nom du collaborateur</Form.Label>
-                              <Form.Control type="text" placeholder="Entrer un nom de collaborateur" required minLength="3"
-                                            onChange={(e) => setNom(e.target.value)}/>
-                              <Form.Text className="text-muted">
-                                  minimum 3 caractères
-                              </Form.Text>
-                              <Form.Control.Feedback type="invalid">
-                                  Le nom du collaborateur est obligatoire!
-                              </Form.Control.Feedback>
-                          </Form.Group>
+                          
                           <Form.Group className="mb-3" controlId="formBasicPassword">
                               <Form.Label>Nom</Form.Label>
                               <Form.Control type="text" placeholder="Nom" required
